@@ -1,6 +1,32 @@
 $(document).ready(function() {
 // global variables
-var unguessedWordLibrary = ["yggdrasil", "valkyrie", "baldr", "freyr", "mimir", "odin", "aesir", "vanir", "alfheim", "midgard", "asgard", "jotunheim", "muspelheim", "svartalfheim", "niflheim", "vanaheim", "helheim"];
+var unguessedWordLibrary = ["yggdrasil", 
+    "valkyrie", 
+    "baldr", 
+    "freyr", 
+    "mimir", 
+    "odin", 
+    "aesir", 
+    "vanir", 
+    "alfheim", 
+    "midgard", 
+    "asgard", 
+    "jotunheim", 
+    "muspelheim", 
+    "svartalfheim", 
+    "niflheim", 
+    "vanaheim", 
+    "helheim", 
+    "brock",
+    "sindri",
+    "frigg",
+    "heimdall",
+    "tyrr",
+    "idun",
+    "bragi",
+    "vili",
+    "jormungand",
+    "fenrir"];
 var unguessedLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 var wins = 0;
 var losses = 0;
@@ -17,6 +43,7 @@ var word = {
     answerLength: "",
     placeholderLetters: [],
     answerLetters: "",
+    attemptsColor: [["white","100s"],["#ffd5d5","80s"],["#ffaaa","70s"],["#ff8080","60s"],["#ff555","50s"],["#ff2a2a","40s"],["#ff0000","30s"],["#d40000","20s"],["#800000","10s"],["#800000","10s"],["#800000","10s"]],
     winSound: function () {
         var audioWin = document.getElementById('winAudio');
         winAudio.play();
@@ -24,7 +51,7 @@ var word = {
     lossSound: function () {
         var audioWin = document.getElementById('lossAudio');
         lossAudio.play();
-    }
+    },
 }
 
 // keyup event
@@ -87,7 +114,8 @@ function initialize() {
         }
     }
     //reset attempts
-    $("#attempts").html(word.attempts);
+    $("#attempts").html(word.attempts).css("color","white");
+    $("#rotateImg").css("animation-duration","100s");
 
     //create placeholder _'s with a space
     for (j = 0; j < newWord.length; j++) {
@@ -104,6 +132,7 @@ function initialize() {
         newGame = false;
     }
     resetGame = false;
+    console.log(word)
 };
 
 // Update gameboard with succesful keystroke
@@ -139,9 +168,15 @@ function makeGuess (keyGuess) {
                 alert("You win! You guessed " + word.name + "!");
                 initialize();
             }
-        } else { //loss condition and reset gameboard
+        } else { 
             word.attempts++;
             newAttempts.text(word.attempts);
+            var newColor = word.attemptsColor[word.attempts][0];
+            var newSpeed = word.attemptsColor[word.attempts][1];
+            newAttempts.css("color", newColor);
+            $("#rotateImg").css("animation-duration",newSpeed);
+
+            // if attemps is greater than max allowed guesses reset gameboard
             if (word.attempts > maxAttempts) {
                 losses++;
                 $("#loss").html(losses);

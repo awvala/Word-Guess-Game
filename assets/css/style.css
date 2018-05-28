@@ -24,6 +24,10 @@ html, body{
     }
 }
 
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
 .horizontalcontainer {
     width: 100%;
 }
@@ -86,7 +90,7 @@ padding: 20px;
 
 .unguessedLetter {
     display: inline-block;
-    margin: 10px;
+    margin: 5px;
     color: darkgray;
     line-height: 1;
 }
@@ -101,6 +105,7 @@ padding: 20px;
     width: 100%;
     text-align: center;
     font-size: 2em;
+    margin: 10px 0px 10px 0px;
 }
 
 #instructions {
@@ -117,9 +122,34 @@ padding: 20px;
     text-align: center;
 }
 
-#attempts {
-    font-size: 60px;
+            /* Begin Attempts formatting */
+
+#rotatingContainer{
+    position: relative;
+    text-align: center;
+    width: 100%;
 }
+
+#rotateImg {
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 100s linear infinite;
+    -moz-animation: spin 100s linear infinite;
+    animation: spin 100s linear infinite;
+}
+
+#attempts {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+    z-index: 99999;
+}
+
+/* End Attempts formatting */
 
 .rune {
     float: left;
@@ -133,4 +163,3 @@ padding: 20px;
 .hiddenAudio {
     display: none;
 }
-

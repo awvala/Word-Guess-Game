@@ -132,7 +132,6 @@ function initialize() {
         newGame = false;
     }
     resetGame = false;
-    console.log(word)
 };
 
 // Update gameboard with succesful keystroke
